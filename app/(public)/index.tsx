@@ -1,19 +1,18 @@
-// app/screens/LoginScreen.js
+
 
 import React, { useState } from 'react';
 import { StyleSheet, View, TouchableOpacity } from 'react-native';
 import { TextInput, Button, Text } from 'react-native-paper';
 
-export default function LoginScreen({ navigation }:any) {
+export default function LoginScreen() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
   const handleLogin = () => {
-    // Lógica simples de login
+    
     if (email === 'usuario@obrafacil.com' && password === 'senha123') {
       alert('Login bem-sucedido!');
-      // Navegar para a tela principal após login bem-sucedido
-      navigation.navigate('Home'); // Supondo que você tenha uma tela chamada 'Home'
+      
     } else {
       alert('E-mail ou senha incorretos.');
     }
