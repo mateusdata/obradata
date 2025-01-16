@@ -1,5 +1,7 @@
+// app/screens/LoginScreen.js
 
-
+import { useAuth } from '@/contexts/AuthProvider';
+import { router } from 'expo-router';
 import React, { useState } from 'react';
 import { StyleSheet, View, TouchableOpacity } from 'react-native';
 import { TextInput, Button, Text } from 'react-native-paper';
@@ -7,12 +9,10 @@ import { TextInput, Button, Text } from 'react-native-paper';
 export default function LoginScreen() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-
+  const { signIn, user } = useAuth();
   const handleLogin = () => {
-    
-    if (email === 'usuario@obrafacil.com' && password === 'senha123') {
-      alert('Login bem-sucedido!');
-      
+    if (true) {
+      signIn({ email: "mateus@gmail.com", name: 'Mateus' });
     } else {
       alert('E-mail ou senha incorretos.');
     }
@@ -21,6 +21,8 @@ export default function LoginScreen() {
   return (
     <View style={styles.container}>
       <Text style={styles.header}>Bem-vindo ao Obra Fácil</Text>
+      <Text style={styles.header}>{JSON.stringify(user, null, 2)}</Text>
+
 
       <TextInput
         label="E-mail"

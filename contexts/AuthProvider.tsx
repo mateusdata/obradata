@@ -1,22 +1,57 @@
 import { AuthContextData, User } from '@/types/types'
-import React, { createContext, PropsWithChildren, useContext, useState } from 'react'
+import React, { createContext, PropsWithChildren, useContext, useEffect, useState } from 'react'
 import * as SecureStore from 'expo-secure-store';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import { router } from 'expo-router';
 
 const AuthContext = createContext<AuthContextData>({} as AuthContextData);
 
 export default function AuthProvider({ children }: PropsWithChildren<{}>) {
-  const [user, setUser] = useState<User | null>({
-    email:"Mateuspele2015@gmail.com",
-    name:"Mateus",
-  });
+  const [user, setUser] = useState<User | null>(null);
 
-  const [isLoading, setIsLoading ]  = useState<boolean>(false)
+  const [isLoading, setIsLoading] = useState<boolean>(true)
 
-  const signIn = async (user: User) => {
-    setUser(user)
+
+  useEffect(() => {
+    loadStorageData()
+  }, [user])
+
+  const loadStorageData = async () => {
+    try {
+      setIsLoading(true)
+      await AsyncStorage.clear();
+      const recoverdUser = await AsyncStorage.getItem("user")
+      if (recoverdUser !== null) {
+        alert("tem dados")
+        console.log(recoverdUser);
+        setUser(JSON.parse(recoverdUser))
+      }
+      setIsLoading(false)
+
+    } catch (error) {
+      setIsLoading(false)
+    }
+  }
+
+  const signIn = async (myUser: User) => {
+    console.log(myUser);
+
+
+    try {
+
+      await AsyncStorage.setItem("user", JSON.stringify(myUser))
+      // await saveToken("14ssdsds444sdsdsdsdsd")
+      setUser(myUser);
+      router.replace("/(tabs)")
+
+    } catch (error) {
+      console.log(error);
+
+    }
   }
   const signOut = async () => {
-    setUser(user)
+    setUser(null)
+    await AsyncStorage.clear();
   }
   const signUp = async (user: User) => {
     setUser(user)
