@@ -9,21 +9,18 @@ const AuthContext = createContext<AuthContextData>({} as AuthContextData);
 export default function AuthProvider({ children }: PropsWithChildren<{}>) {
   const [user, setUser] = useState<User | null>(null);
 
-  const [isLoading, setIsLoading] = useState<boolean>(true)
+  const [isLoading, setIsLoading] = useState<boolean>(false)
 
 
   useEffect(() => {
     loadStorageData()
-  }, [user])
+  }, [])
 
   const loadStorageData = async () => {
     try {
       setIsLoading(true)
-      await AsyncStorage.clear();
       const recoverdUser = await AsyncStorage.getItem("user")
       if (recoverdUser !== null) {
-        alert("tem dados")
-        console.log(recoverdUser);
         setUser(JSON.parse(recoverdUser))
       }
       setIsLoading(false)

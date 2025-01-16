@@ -4,12 +4,13 @@ import { Provider, TextInput as PaperInput, Button as PaperButton } from 'react-
 import * as Print from 'expo-print';
 import { shareAsync } from 'expo-sharing';
 import * as FileSystem from 'expo-file-system';
+import { colorPrimary, colorPrimaryDark } from '@/constants/Colors';
 
 export default function App() {
   const [ferramenta, setFerramenta] = useState('');
   const [valor, setValor] = useState('');
   const [descricao, setDescricao] = useState('');
-  const [itens, setItens] = useState([]);
+  const [itens, setItens] = useState<{ ferramenta: string; valor: string; descricao: string }[]>([]);
 
   const adicionarItem = () => {
     if (ferramenta && valor && descricao) {
@@ -21,6 +22,7 @@ export default function App() {
   };
 
   const gerarPDF = async () => {
+    if (!itens.length) { return }
     const html = `
       <html>
         <head>
@@ -120,16 +122,13 @@ export default function App() {
     const { uri, } = await Print.printToFileAsync({ html });
     const timestamp = new Date().getTime();
 
-    const newPath = `${FileSystem.documentDirectory}Orçamento1.pdf`;
+    const newPath = `${FileSystem.documentDirectory}Orçamento-${timestamp.toString().slice(0,6)}.pdf`;
 
     await FileSystem.moveAsync({
       from: uri,
       to: newPath,
     });
 
-    console.log('File has been saved to:', newPath);
-
-    // Compartilha o arquivo a partir do novo caminho
     await shareAsync(newPath, { UTI: '.pdf', mimeType: 'application/pdf' });
   };
 
@@ -204,8 +203,8 @@ const styles = StyleSheet.create({
   },
   pdfButton: {
     marginTop: 20,
-    backgroundColor: '#0056b3',
-    padding: 15,
+    backgroundColor: colorPrimaryDark,
+    padding: 5,
     borderRadius: 5,
     alignItems: 'center',
   },
