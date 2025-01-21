@@ -47,8 +47,9 @@ export default function AuthProvider({ children }: PropsWithChildren<{}>) {
     }
   }
   const signOut = async () => {
-    setUser(null)
-    await AsyncStorage.clear();
+    setUser(null);
+    await SecureStore.deleteItemAsync("token");
+    await AsyncStorage.removeItem("user");
   }
   const signUp = async (user: User) => {
     setUser(user)

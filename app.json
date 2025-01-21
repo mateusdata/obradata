@@ -10,14 +10,16 @@
     "newArchEnabled": true,
     "ios": {
       "supportsTablet": true,
-      "bundleIdentifier": "com.mateusdata.ObraData"
+      "bundleIdentifier": "com.mateusdata.ObraData",
+      "googleServicesFile": "./GoogleService-Info.plist"
     },
     "android": {
       "adaptiveIcon": {
         "foregroundImage": "./assets/images/adaptive-icon.png",
         "backgroundColor": "#ffffff"
       },
-      "package": "com.mateusdata.ObraData"
+      "package": "com.mateusdata.ObraData",
+      "googleServicesFile": "./google-services.json"
     },
     "web": {
       "bundler": "metro",
@@ -37,13 +39,8 @@
       ],
       "expo-secure-store",
       [
-        "@react-native-google-signin/google-signin",
-        {
-          "iosUrlScheme": "com.googleusercontent.apps._some_id_here_"
-        }
+        "@react-native-google-signin/google-signin"
       ]
-
-      
     ],
     "experiments": {
       "typedRoutes": true

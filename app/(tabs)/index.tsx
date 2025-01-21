@@ -1,14 +1,17 @@
 import React, { useState } from 'react';
-import { View, Text, StyleSheet, FlatList } from 'react-native';
+import { View, Text, StyleSheet, FlatList, ScrollView } from 'react-native';
 import { Provider, TextInput as PaperInput, Button as PaperButton } from 'react-native-paper';
 import * as Print from 'expo-print';
 import { shareAsync } from 'expo-sharing';
 import * as FileSystem from 'expo-file-system';
 import { colorPrimary, colorPrimaryDark } from '@/constants/Colors';
+import { useAuth } from '@/contexts/AuthProvider';
+import FontAwesome from '@expo/vector-icons/FontAwesome';
 
 export default function App() {
   const [ferramenta, setFerramenta] = useState('');
   const [valor, setValor] = useState('');
+  const { user } = useAuth();
   const [descricao, setDescricao] = useState('');
   const [itens, setItens] = useState<{ ferramenta: string; valor: string; descricao: string }[]>([]);
 
@@ -122,7 +125,7 @@ export default function App() {
     const { uri, } = await Print.printToFileAsync({ html });
     const timestamp = new Date().getTime();
 
-    const newPath = `${FileSystem.documentDirectory}Orçamento-${timestamp.toString().slice(0,6)}.pdf`;
+    const newPath = `${FileSystem.documentDirectory}Orçamento-${timestamp.toString().slice(0, 6)}.pdf`;
 
     await FileSystem.moveAsync({
       from: uri,
@@ -134,6 +137,8 @@ export default function App() {
 
   return (
     <Provider>
+
+
       <View style={styles.container}>
         <PaperInput
           label="Ferramenta"
@@ -158,7 +163,7 @@ export default function App() {
           multiline
           style={styles.input}
         />
-        <PaperButton mode="contained" onPress={adicionarItem} style={styles.button}>
+        <PaperButton buttonColor={colorPrimaryDark} mode="contained" onPress={adicionarItem} style={styles.button}>
           Adicionar Item
         </PaperButton>
         <FlatList
@@ -172,7 +177,13 @@ export default function App() {
             </View>
           )}
         />
-        <PaperButton mode="contained" onPress={gerarPDF} style={styles.pdfButton}>
+
+        <PaperButton
+          mode="contained"
+          onPress={gerarPDF}
+          style={styles.pdfButton}
+          icon={({ size, color }) => <FontAwesome name="file-pdf-o" size={size} color={color} />}
+        >
           Gerar PDF
         </PaperButton>
       </View>
@@ -204,7 +215,7 @@ const styles = StyleSheet.create({
   pdfButton: {
     marginTop: 20,
     backgroundColor: colorPrimaryDark,
-    padding: 5,
+    padding: 2,
     borderRadius: 5,
     alignItems: 'center',
   },
