@@ -3,7 +3,7 @@
 import { useAuth } from '@/contexts/AuthProvider';
 import { router } from 'expo-router';
 import React, { useState } from 'react';
-import { StyleSheet, View, TouchableOpacity, ScrollView } from 'react-native';
+import { StyleSheet, View, TouchableOpacity, ScrollView, Image } from 'react-native';
 import { TextInput, Button, Text } from 'react-native-paper';
 import {
   GoogleSignin,
@@ -12,20 +12,12 @@ import {
   isSuccessResponse,
   statusCodes,
 } from '@react-native-google-signin/google-signin';
+import { GoogleConfigure } from '@/constants/GoogleConfigure';
+import { colorPrimary, colorPrimaryDark } from '@/constants/Colors';
+import FontAwesome from '@expo/vector-icons/FontAwesome';
 GoogleSignin.configure();
 
-GoogleSignin.configure({
-  webClientId: '157927205477-go5641cmd0lb3arct2vfasvrphatomdh.apps.googleusercontent.com', // client ID of type WEB for your server. Required to get the `idToken` on the user object, and for offline access.
-  scopes: ['profile', 'email'], // what API you want to access on behalf of the user, default is email and profile  
-  offlineAccess: false, // if you want to access Google API on behalf of the user FROM YOUR SERVER
-  hostedDomain: '', // specifies a hosted domain restriction
-  forceCodeForRefreshToken: true, // [Android] related to `serverAuthCode`, read the docs link below *.
-  accountName: '', // [Android] specifies an account name on the device that should be used
-  iosClientId: '<FROM DEVELOPER CONSOLE>', // [iOS] if you want to specify the client ID of type iOS (otherwise, it is taken from GoogleService-Info.plist)
-  googleServicePlistPath: '', // [iOS] if you renamed your GoogleService-Info file, new name here, e.g. "GoogleService-Info-Staging"
-  openIdRealm: '', // [iOS] The OpenID2 realm of the home web server. This allows Google to include the user's OpenID Identifier in the OpenID Connect ID token.
-  profileImageSize: 120, // [iOS] The desired height (and width) of the profile image. Defaults to 120px
-});
+GoogleSignin.configure(GoogleConfigure);
 
 export default function LoginScreen() {
   const { signIn, user } = useAuth();
@@ -80,9 +72,15 @@ export default function LoginScreen() {
   return (
     <View style={styles.container}>
       <Text style={styles.header}>Bem-vindo ao Obra Fácil</Text>
-      <Button loading={isLoading} disabled={isLoading} onPress={signIn2} mode='contained' style={styles.button}>
-        Fazer login
-
+      <Button
+        loading={isLoading}
+        disabled={isLoading}
+        onPress={signIn2}
+        mode='contained'
+        icon={() => <Image resizeMode='center' width={22} height={22} source={{uri:"https://img.icons8.com/?size=100&id=17949&format=png&color=000000"} } />}
+        buttonColor={colorPrimaryDark}
+        style={styles.button}>
+        Entrar com o Google
       </Button>
 
 

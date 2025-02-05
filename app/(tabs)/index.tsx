@@ -7,6 +7,7 @@ import * as FileSystem from 'expo-file-system';
 import { colorPrimary, colorPrimaryDark } from '@/constants/Colors';
 import { useAuth } from '@/contexts/AuthProvider';
 import FontAwesome from '@expo/vector-icons/FontAwesome';
+import { Redirect } from 'expo-router';
 
 export default function App() {
   const [ferramenta, setFerramenta] = useState('');
@@ -135,10 +136,13 @@ export default function App() {
     await shareAsync(newPath, { UTI: '.pdf', mimeType: 'application/pdf' });
   };
 
+
+  if (1+1) {
+    return <Redirect href={"/(public)/headerObra"} />
+  }
+
   return (
     <Provider>
-
-
       <View style={styles.container}>
         <PaperInput
           label="Ferramenta"
