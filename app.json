@@ -10,8 +10,7 @@
     "newArchEnabled": true,
     "ios": {
       "supportsTablet": true,
-      "bundleIdentifier": "com.mateusdata.ObraData",
-      "googleServicesFile": "./GoogleService-Info.plist"
+      "bundleIdentifier": "com.mateusdata.ObraData"
     },
     "android": {
       "adaptiveIcon": {

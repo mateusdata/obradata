@@ -14,6 +14,22 @@
       },
       "oauth_client": [
         {
+          "client_id": "157927205477-nl872ll4h7dvrp1cgdai7cdq8h14rrr1.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.mateusdata.ObraData",
+            "certificate_hash": "0129169f7d97d6737802cb6028dbf53b769b10f3"
+          }
+        },
+        {
+          "client_id": "157927205477-ocq0752k4r2tf92jhl28e5nrclcskjk6.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.mateusdata.ObraData",
+            "certificate_hash": "1606a0ac25567ab8c781b43a3f525f8b5c20dda4"
+          }
+        },
+        {
           "client_id": "157927205477-go5641cmd0lb3arct2vfasvrphatomdh.apps.googleusercontent.com",
           "client_type": 3
         }
