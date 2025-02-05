@@ -8,7 +8,8 @@ node_modules/
 dist/
 web-build/
 expo-env.d.ts
-.env
+android
+ios
 # Native
 *.orig.*
 *.jks
@@ -16,8 +17,8 @@ expo-env.d.ts
 *.p12
 *.key
 *.mobileprovision
-
-*.aab
+*.deb
+*.zip
 
 
 # Metro
@@ -39,5 +40,3 @@ yarn-error.*
 *.tsbuildinfo
 
 app-example
-google-services.json
-GoogleService-Info.plist
